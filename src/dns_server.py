@@ -120,7 +120,6 @@ class TCPRequestHandler(BaseRequestHandler):
 
 
 class UDPRequestHandler(BaseRequestHandler):
-
     def get_data(self):
         return self.request[0].strip()
 
