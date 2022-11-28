@@ -1,8 +1,11 @@
 #!/usr/bin/env python
-from scapy.all import DNS, DNSQR, IP, send, UDP
+from scapy.all import DNS, DNSQR, IP, send, UDP, DNSRROPT
 import numpy as np
-import time
+import time 
+import random 
 
+random.seed(1313)
+random.randint(0,255)
 
 target = "10.0.0.238"  # Target host
 nameserver = "10.0.0.183"  # DNS server
@@ -11,9 +14,19 @@ domain = "google.com"  # Some domain name like "google.com" etc.
 
 ip = IP(dst=nameserver, src=target)
 udp = UDP(dport=53)
-dns = DNS(rd=1, qd=DNSQR(qname=domain))
+dns = DNS(id = random.randint(0,255), rd=1, qd=DNSQR(qname=domain, qtype=255), an=DNSRROPT(rdlen=12, rdata= []))
+
+
 
 request = (ip/udp/dns)
+
+# print(dns.show())
+
+
+
+
+
+
 
 n_levels = 8
 packets_level = []
